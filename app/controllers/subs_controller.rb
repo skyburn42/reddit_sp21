@@ -69,27 +69,59 @@ class SubsController < ApplicationController
 
 
 
+  
+
+
+  
 
 
 
 
 
 
-  def index
-    @subs = Sub.all
-    render component: 'Subs', props: { subs: @subs }
+
+
+    def index
+      @subs = Sub.all 
+      render component: 'Subs', props: { subs: @subs }
+    end
+    def show
+      @sub = Sub.find(params[:id])
+      render component: 'Sub', props: { sub: @sub }
+    end
+    def new
+      @sub = Sub.new
+      render component: 'SubNew', props: { sub: @sub }
+    end
+    def create 
+      @sub = Sub.new(sub_params)
+      if @sub.save
+        redirect_to subs_path
+      else
+        render component: 'SubNew', props: { sub: @sub }
+      end
+    end
+    def edit
+      @sub = Sub.find(params[:id])
+      render component: 'SubEdit', props: { sub: @sub }
+    end
+    def update
+      @sub = Sub.find(params[:id])
+      if @sub.update(sub_params)
+        redirect_to subs_path
+      else
+        render component: 'SubEdit', props: { sub: @sub }
+      end
+    end
+    def destroy
+      @sub = Sub.find(params[:id])
+      @sub.destroy
+      redirect_to subs_path
+    end
+    private
+      def sub_params
+        params.require(:sub).permit(:title)
+      end
   end
 
-  def show
-    @sub = Sub.find(param[:id])
-    render component: 'Sub', props: { subs: @sub }
-  end
 
-  def new
-    @sub = Sub.new
-    render component: 'Sub', props: { subs: @sub }
-  end
-
-  def edit
-  end
-end
