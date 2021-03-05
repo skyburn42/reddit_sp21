@@ -11,6 +11,8 @@ const Sub = ({ sub }) => {
         created: {created_at}, id: {id}
       </p>
       <a href="/">back</a>
+      <br></br>
+      <a href={`/subs/${id}/topics`}>Topics</a>
     </>
   )
 }

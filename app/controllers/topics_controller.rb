@@ -18,7 +18,7 @@ class TopicsController < ApplicationController
 
   def create
     @topic = @sub.topics.new(topic_params)
-    if @topic
+    if @topic.save
         #redirect_to [@sub, @topic]
     else
       render component: 'TopicNew', props: { sub: @sub, topic: @topic }
